@@ -1,0 +1,16 @@
+
+<div class="card-container projects mb-2">
+    {% assign featured-work = site.work | where:"featured","true" | sort: 'date' | reverse %}
+    {% for item in featured-work %}
+    <div class="card">
+        <div class="card-header">{{item.name}}</div>
+        <div class="card-body">
+            <p>{{ item.date | date_to_string }}</p>
+            <p>{{ item.description }}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{{item.url}}">Read more</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

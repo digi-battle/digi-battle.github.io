@@ -1,0 +1,150 @@
+$backgroundColor: #ffffff;
+$bodyColor: #000000;
+$bodyFont: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+
+body {
+  background: $backgroundColor;
+  color: $bodyColor;
+  font-family: $bodyFont;
+}
+
+.design-container {
+    width: 100%;
+    justify-content: start;
+    align-items: start;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+@media(min-width: 768px) {
+    .design-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+.design-container .design-element {
+    background-color: green;
+    /*min-width: 300px;*/
+    /*max-width: 400px;*/
+    height: 200px;
+    flex: 0 1 auto;
+    flex-grow: 1;
+    align-self: flex-start;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    filter: saturate(0%);
+    transition: all 0.2s ease-in-out;
+}
+.design-container .design-element:hover {
+    filter: saturate(100%);
+}
+
+.design-container .design-element img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.rambling-container {
+
+}
+
+.rambling-container .rambling p {
+    padding: 0 2rem;
+}
+
+.rambling-container .rambling .date {
+    font-size: 16px;
+}
+
+.img-fluid {
+    width: 100%;
+
+}
+
+.table, .table td {
+    border: solid 1px #000;
+    margin-bottom: 1rem;
+}
+
+pre {
+    border: 1px solid #000;
+    overflow: scroll;
+    max-height: 600px;
+}
+
+
+
+
+
+
+@charset 'utf-8';
+
+@import "_variables";
+@import "_helpers";
+@import "_nav";
+@import "_cards";
+
+html {
+    margin: 0;
+    padding: 0;
+    font-size: $font-size;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: $background-color;
+    color: $font-color;
+    font-family: $font-primary-backup;
+    font-family: $font-primary;
+    min-height: calc(100vh - 4px);
+}
+
+@media(min-width: 1024px) {
+    body {
+        /*border: 1px solid yellow;*/
+    }
+}
+
+@keyframes spin360 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    word-break: break-word;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+.main-body {
+    display: block;
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 1rem;
+}
+
+@media(min-width: 1024px) {
+    .main-body {
+        padding: 0;
+    }
+}
+
+
+
+.blog-content {
+    word-wrap: anywhere;
+}

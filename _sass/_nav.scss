@@ -1,0 +1,36 @@
+﻿.top-nav {
+    margin: 0 auto 1rem;
+    padding: 0.5rem 0;
+    display: flex;
+    background-color: $primary-background-color;
+    color: $primary-font-color;
+}
+
+.top-nav .nav-link {
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+}
+
+.nav-text-hider {
+    width: 1ch;
+    overflow: hidden;
+    display: inline-block;
+    transition: width .5s linear;
+}
+
+.top-nav .nav-link:hover {
+    text-decoration: underline;
+}
+
+.top-nav .nav-link:hover .nav-text-hider {
+    width: 100%;
+}
+
+.top-nav .nav-link:visited {
+    color: $primary-font-color;
+}
+
+.top-nav .nav-break {
+
+}

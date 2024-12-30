@@ -1,3 +1,21 @@
-hi
+---
+layout: default
+title: "Happy Jekylling!"
+---
 
-test
+<h1>wiredjohn.com</h1>
+
+<p>web developer</p>
+
+<h2>featured work</h2>
+{% include featured-work.html %}
+
+<h2>latest blog posts</h2>
+<ul>
+    {% assign sorted-posts = site.posts | sort: 'date' | reverse %}
+    {% for item in sorted-posts limit: 3 %}
+    <li>
+        <p>{{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a></p>
+    </li>
+    {% endfor %}
+</ul>

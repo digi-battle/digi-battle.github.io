@@ -1,0 +1,11 @@
+<nav class="top-nav">
+    {% for item in site.data.navigation %}
+    <a href="{{ item.link }}" class="nav-link">
+        <span class="nav-text-hider">{{ item.name }}</span>
+    </a>
+
+    {% if item != site.data.navigation.last %}
+    <span class="nav-break">/</span>
+    {% endif %}
+    {% endfor %}
+</nav>

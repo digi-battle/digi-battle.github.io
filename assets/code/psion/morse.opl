@@ -1,0 +1,119 @@
+PROC MORSE:
+	LOCAL ENG$(32), COUNT%, ENGLEN%, CHAR$(1)
+	INPUT ENG$
+	ENG$ = UPPER$(ENG$)
+	
+	COUNT% = 1
+	ENGLEN% = LEN(ENG$)
+	
+	WHILE(COUNT% <= ENGLEN%):
+		CHAR$ = MID$(ENG$, COUNT%, 1)
+		IF(CHAR$ = "A"):
+			PLAY: (".-")
+		ELSEIF(CHAR$ = "B"):
+			PLAY: ("-...")
+		ELSEIF(CHAR$ = "C"):
+			PLAY: ("-.-.")
+		ELSEIF(CHAR$ = "D"):
+			PLAY: ("-..")
+		ELSEIF(CHAR$ = "E"):
+			PLAY: (".")
+		ELSEIF(CHAR$ = "F"):
+			PLAY: ("..-.")
+		ELSEIF(CHAR$ = "G"):
+			PLAY: ("--.")
+		ELSEIF(CHAR$ = "H"):
+			PLAY: ("....")
+		ELSEIF(CHAR$ = "I"):
+			PLAY: ("..")
+		ELSEIF(CHAR$ = "J"):
+			PLAY: (".---")
+		ELSEIF(CHAR$ = "K"):
+			PLAY: ("-.-")
+		ELSEIF(CHAR$ = "L"):
+			PLAY: (".-..")
+		ELSEIF(CHAR$ = "M"):
+			PLAY: ("--")
+		ELSEIF(CHAR$ = "N"):
+			PLAY: ("-.")
+		ELSEIF(CHAR$ = "O"):
+			PLAY: ("---")
+		ELSEIF(CHAR$ = "P"):
+			PLAY: (".--.")
+		ELSEIF(CHAR$ = "Q"):
+			PLAY: ("--.-")
+		ELSEIF(CHAR$ = "R"):
+			PLAY: (".-.")
+		ELSEIF(CHAR$ = "S"):
+			PLAY: ("...")
+		ELSEIF(CHAR$ = "T"):
+			PLAY: ("-")
+		ELSEIF(CHAR$ = "U"):
+			PLAY: ("..-")
+		ELSEIF(CHAR$ = "V"):
+			PLAY: ("...-")
+		ELSEIF(CHAR$ = "W"):
+			PLAY: (".--")
+		ELSEIF(CHAR$ = "X"):
+			PLAY: ("-..-")
+		ELSEIF(CHAR$ = "Y"):
+			PLAY: ("-.--")
+		ELSEIF(CHAR$ = "Z"):
+			PLAY: ("--..")
+		ELSEIF(CHAR$ = "0"):
+			PLAY: ("-----")
+		ELSEIF(CHAR$ = "1"):
+			PLAY: (".----")
+		ELSEIF(CHAR$ = "2"):
+			PLAY: ("..---")
+		ELSEIF(CHAR$ = "3"):
+			PLAY: ("...--")
+		ELSEIF(CHAR$ = "4"):
+			PLAY: ("....-")
+		ELSEIF(CHAR$ = "5"):
+			PLAY: (".....")
+		ELSEIF(CHAR$ = "6"):
+			PLAY: ("-....")
+		ELSEIF(CHAR$ = "7"):
+			PLAY: ("--...")
+		ELSEIF(CHAR$ = "8"):
+			PLAY: ("---..")
+		ELSEIF(CHAR$ = "9"):
+			PLAY: ("----.")
+		ELSEIF(CHAR$ = "!"):
+			PLAY: ("-.-.--")
+		ELSEIF(CHAR$ = "."):
+			PLAY: (".-.-.-")
+		ELSEIF(CHAR$ = " "):
+			PLAY: (" ")
+		ENDIF
+		COUNT% = COUNT% + 1
+	ENDWH
+	PRINT "COMPLETE!"
+	GET
+ENDP
+
+PROC PLAY: (MORSE$)
+	LOCAL PITCH%, DOTT%, DASHT%, CHART%, SPACET%, COUNT%, MORLEN%, CHAR$(1)
+	PITCH% = 300
+	DOTT% = 10
+	DASHT% = 25
+	CHART% = 20
+	SPACET% = 25
+	COUNT% = 1
+	MORLEN% = LEN(MORSE$)
+	PRINT(MORSE$)
+	WHILE (COUNT% <= MORLEN%):
+		CHAR$ = MID$(MORSE$, COUNT%, 1)
+		IF(CHAR$ = "."):
+			BEEP DOTT%, PITCH%
+		ELSEIF (CHAR$ = "-"):
+			BEEP DASHT%, PITCH%
+		ELSEIF (CHAR$ = " "):
+			PAUSE SPACET%
+		ENDIF
+		COUNT% = COUNT% + 1
+		PAUSE CHART%
+	ENDWH
+	PAUSE SPACET%
+ENDP

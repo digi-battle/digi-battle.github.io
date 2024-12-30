@@ -1,0 +1,63 @@
+---
+short_name: Censor-Images
+name: Censor Images with CSS and JS
+description: A super simple way to censor images on a page with the option to toggle censoring on click.
+date: 12/12/2022
+layout: work
+---
+
+<style>
+    .img-wrapper {
+        overflow: hidden;
+        display: inline-block;
+        border: 1px solid black;
+        width: 300px;
+        height: 300px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .blur {
+        filter: blur(20px);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <p>{{page.description}}</p>
+    <p>Could be added to a browser extension like <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne?pli=1" target="_blank" rel="noopener">Stylus</a> to hide all images on specific websites.</p>
+
+    <div class="img-wrapper">
+        <img src="https://placehold.co/600x400/png" />
+    </div>
+    <div class="img-wrapper">
+        <img src="https://placehold.co/600x400/png" />
+    </div>
+    <div class="img-wrapper">
+        <img src="https://placehold.co/600x400/png" />
+    </div>
+
+    <script>
+        let images = document.querySelectorAll("img");
+
+        for (let i = 0; i < images.length; i++) {
+            // Add the blur class
+            document.getElementsByTagName("img")[i].classList.add("blur");
+
+            // Add click event listener to toggle blur
+            document.getElementsByTagName("img")[i].addEventListener("click", function (e) {
+                if (e.target && e.target.matches("img")) {
+                    if (e.target.classList.contains("blur")) {
+                        e.target.classList.remove("blur");
+                    }
+                    else {
+                        e.target.classList.add("blur");
+                    }
+                }
+            });
+        }
+    </script>
+</body>

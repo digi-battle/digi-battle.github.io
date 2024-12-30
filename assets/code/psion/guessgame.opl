@@ -1,0 +1,33 @@
+GUESSGAME:
+    LOCAL GUESS, ANSWER%, LIVES%
+    ANSWER%=INT(RND*100)
+    LIVES%=10
+    PRINT "CPU HAS PICKED"
+    PRINT "A NUM 1 TO 100"
+    GET 
+    MAIN::
+        IF LIVES%=0
+            GOTO LOSE::
+        ELSE 
+            LIVES%=LIVES%-1
+        ENDIF
+        PRINT LIVES%;"LVS - GUESS:"
+        INPUT GUESS
+        CLS
+        IF GUESS=ANSWER%
+            PRINT "YOU WIN"
+            PRINT "ANSWER WAS",ANSWER%
+            GET
+            GOTO END::
+        ELSEIF GUESS<ANSWER%
+            PRINT "TOO LOW"            
+        ELSE 
+            PRINT "TOO HIGH"            
+        ENDIF
+        GET 
+        GOTO MAIN::
+    LOSE::
+        PRINT "YOU LOSE"
+        PRINT "ANSWER IS",ANSWER%
+        GET
+    END::
