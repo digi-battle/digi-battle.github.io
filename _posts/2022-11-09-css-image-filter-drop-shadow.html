@@ -1,0 +1,54 @@
+---
+short_name: css-image-drop-shadow
+name: CSS Image Drop-Shadow
+description: "Setting the CSS filter: drop-shadow property on transparant PNGs."
+layout: blogpost
+tags: CSS
+---
+
+<style>
+    .img-shadow {
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0px 0px 50px yellow);
+    }
+
+    .demo {
+        max-width: 100%;
+        background-color: black;
+        border: solid black 3px;
+        margin: 20px;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+        .demo img {
+            max-height: 400px;
+        }
+
+    .text {
+        width: 50%;
+        margin-left: 40px;
+        padding-top: 20px;
+    }
+
+    pre {
+        overflow: hidden;
+        overflow-x: auto;
+        padding: 20px;
+    }
+</style>
+
+<div>
+    <p>This might not come as a surprise to anyone but when I found this out I thought it was cool.</p>
+    <p>If you apply a <pre>filter: drop-shadow(h-shadow v-shadow blur color);</pre> style to a .PNG image with an alpha channel then it will render the drop-shadow on the actual image rather than a box around its border. You can see this in the following example:</p>
+</div>
+
+<div class="demo">
+    <img src="/assets/img/work/drop-shadow/bulb.png" class="img-shadow" />
+    <pre>filter: drop-shadow(0px 0px 50px yellow);</pre>
+</div>
+
+<div>
+    <p>Pretty neat but probably useless.</p>
+</div>

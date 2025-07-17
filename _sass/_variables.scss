@@ -1,9 +1,19 @@
-﻿$font-size: 16px;
-$font-color: black;
+﻿$blue: #000040;
+$beige: #ffffbf;
+
+$font-size: 16px;
+/*$font-color: black;*/
+$font-color: $beige;
 $font-primary: "IBM Plex Mono", monospace;
 $font-primary-backup: Courier New, Courier, monospace;
 
+$link-color: #84e0ff; // light cyan-blue
+$link-visited-color: #569db3; // desaturated blue
 
-$background-color: white;
+$background-color: $blue;
 $primary-background-color: black;
-$primary-font-color: white;
+$primary-font-color: $beige;
+
+
+/*#000040 --BG*/
+/*#ffffbf - TEXT*/

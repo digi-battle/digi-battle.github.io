@@ -3,19 +3,24 @@ layout: default
 title: "Web Developer"
 ---
 
-<h1>wiredjohn.com</h1>
+<h1>About me</h1>
 
-<p>web developer</p>
+<p>I'm John, a web developer from the UK.</p>
+<p>I currently work as a full stack developer in the finance sector, primarily using the .NET stack.</p>
+<p>I use technology to make life easier - or to build cool stuff.</p>
+<p>My main side project is <a href="https://digi-battle.com" target="_blank">digi-battle.com</a>, a trading card game database launched in 2020.</p>
 
-<h2>featured work</h2>
-{% include featured-work.html %}
-
-<h2>latest blog posts</h2>
+<h2>featured blog posts</h2>
 <ul>
-    {% assign sorted-posts = site.posts | sort: 'date' | reverse %}
-    {% for item in sorted-posts limit: 3 %}
+    {% assign sorted-posts = site.posts | where:"featured","true" | sort: 'date' | reverse %}
+    {% for item in sorted-posts %}
     <li>
-        <p>{{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a></p>
+        <p>
+            {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a>
+            {% for tag in item.tags %}
+                <span class="tag {{tag | downcase}}">{{tag}}</span>
+            {% endfor %}
+        </p>
     </li>
     {% endfor %}
 </ul>
