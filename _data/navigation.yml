@@ -1,6 +1,6 @@
 - name: home
   link: /
-- name: work
-  link: /work
 - name: blog
   link: /blog
+- name: rss
+  link: /feed.xml

@@ -1,0 +1,273 @@
+---
+short_name: css-border-wizard
+name: CSS Border Radius Wizard
+description: A tool for creating interesting box shapes using all 8 targetable points in the CSS border property.
+layout: blogpost
+tags: CSS TOOL
+---
+
+<style>
+
+    .container {
+        height: 100%;
+        padding: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        grid-row-gap: 50px;
+    }
+
+    .box {
+        width: 300px;
+        height: 200px;
+        border: 3px solid darkblue;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: darkblue;
+        color: white;
+        transition: all 0.1s linear;
+        margin: 100px 0;
+    }
+
+    .box-grid:before {
+        content: '';
+        border: 1px dashed white;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+    }
+
+    .box-control {
+        position: absolute;
+        width: 100px;
+    }
+
+    #R1 {
+        top: -20px;
+        left: 10px;
+    }
+
+    #R2 {
+        top: -20px;
+        right: -90px;
+    }
+
+    #R3 {
+        bottom: -20px;
+        right: -90px;
+    }
+
+    #R4 {
+        bottom: -20px;
+        left: 10px;
+    }
+
+    #R5 {
+        top: 5px;
+        left: -10px;
+    }
+
+    #R6 {
+        top: -2px;
+        right: -110px;
+    }
+
+    #R7 {
+        bottom: -2px;
+        right: -115px;
+    }
+
+    #R8 {
+        bottom: -2px;
+        left: -10px;
+    }
+
+    .rotate-90 {
+        transform: rotate(90deg);
+        transform-origin: left;
+    }
+
+    .rotate-180 {
+        transform: rotate(180deg);
+        transform-origin: left;
+    }
+
+    .rotate-270 {
+        transform: rotate(270deg);
+        transform-origin: left;
+    }
+
+    .property {
+        border: 1px solid darkgrey;
+        border-radius: 15px;
+        text-align: center;
+        width: 500px;
+    }
+
+        .property p {
+            margin: 5px;
+        }
+
+    .controls {
+        display: grid;
+        grid-gap: 20px;
+        width: 500px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+        .controls .cell {
+            /*border: 1px solid red;*/
+        }
+
+
+    header {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        margin: 0;
+    }
+
+    footer {
+        position: sticky;
+        bottom: 0;
+        text-align: center;
+        font-style: italic;
+    }
+</style>
+
+<div class="container">
+    <div class="property">
+        <p id="PropertyLabel">border-radius: 0%;</p>
+    </div>
+
+    <div id="box" class="box box-grid">
+        <p>This is a box</p>
+        <input id="R1" type="range" min="0" max="200" value="0" class="box-control rotate-270" />
+        <input id="R2" type="range" min="0" max="200" value="0" class="box-control rotate-270" />
+        <input id="R3" type="range" min="0" max="200" value="0" class="box-control rotate-90" />
+        <input id="R4" type="range" min="0" max="200" value="0" class="box-control rotate-90" />
+        <input id="R5" type="range" min="0" max="200" value="0" class="box-control rotate-180" />
+        <input id="R6" type="range" min="0" max="200" value="0" class="box-control" />
+        <input id="R7" type="range" min="0" max="200" value="0" class="box-control" />
+        <input id="R8" type="range" min="0" max="200" value="0" class="box-control rotate-180" />
+    </div>
+
+    <div class="controls">
+        <div class="cell">
+            <!--<input id="Unit" type="text" value="px" onchange="UpdateBorders()" />-->
+
+            <input type="radio" name="Unit" value="%" checked="checked" onchange="UpdateBorders()" />
+            <label for="%">%</label><br />
+            <input type="radio" name="Unit" value="rem" onchange="UpdateBorders()" />
+            <label for="rem">rem</label><br />
+            <input type="radio" name="Unit" value="px" onchange="UpdateBorders()" />
+            <label for="px">px</label>
+        </div>
+
+        <div class="cell">
+            <input id="UnitMin" type="number" value="0" onchange="UnitMinChange()" />
+        </div>
+        <div class="cell">
+            <input id="UnitMax" type="number" value="200" onchange="UnitMaxChange()" />
+        </div>
+        <div class="cell">
+            <button id="Reset" onclick="Reset()">Reset</button>
+        </div>
+        <div class="cell">
+            <button id="GridToggle" onclick="GridToggle()">Toggle Outline</button>
+        </div>
+        <div class="cell">
+            <button id="Randomise" onclick="Randomise()">Randomise</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let inputs = document.querySelectorAll(".box-control");
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("change", UpdateBorders);
+    }
+
+    console.log(inputs);
+
+    function UpdateBorders() {
+        let box = document.getElementById("box");
+        //let unit = document.getElementById("Unit").value;
+        let unit = document.querySelector('input[name="Unit"]:checked').value;
+
+        let r1 = document.getElementById("R1").value + unit;
+        let r2 = document.getElementById("R2").value + unit;
+        let r3 = document.getElementById("R3").value + unit;
+        let r4 = document.getElementById("R4").value + unit;
+        let r5 = document.getElementById("R5").value + unit;
+        let r6 = document.getElementById("R6").value + unit;
+        let r7 = document.getElementById("R7").value + unit;
+        let r8 = document.getElementById("R8").value + unit;
+
+        let radius = `${r1} ${r2} ${r3} ${r4} / ${r5} ${r6} ${r7} ${r8}`;
+
+        box.style.borderRadius = radius;
+
+        document.getElementById("PropertyLabel").innerText = `border-radius: ${radius};`;
+
+        console.log("Border change");
+        console.log(radius);
+    }
+
+    function Reset() {
+        let inputs = document.querySelectorAll(".box-control");
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = 0;
+        }
+
+        UpdateBorders();
+    }
+
+    function GridToggle() {
+        document.getElementById("box").classList.toggle("box-grid");
+    }
+
+    function Randomise() {
+        let inputs = document.querySelectorAll(".box-control");
+        let max = document.getElementById("UnitMax").value;
+        let min = document.getElementById("UnitMin").value;
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = Math.floor(Math.random() * max);
+        }
+
+        UpdateBorders();
+    }
+
+    function UnitMaxChange() {
+        let max = document.getElementById("UnitMax").value;
+        let inputs = document.querySelectorAll(".box-control");
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].max = max;
+        }
+
+        UpdateBorders();
+    }
+
+    function UnitMinChange() {
+        let min = document.getElementById("UnitMin").value;
+        let inputs = document.querySelectorAll(".box-control");
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].min = min;
+        }
+
+        UpdateBorders();
+    }
+</script>

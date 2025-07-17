@@ -1,6 +1,7 @@
 ---
 layout: blogpost
 title: "Hello Jekyll"
+tags: RAMBLING
 ---
 
 Welcome to my new personal site built with Jekyll!
