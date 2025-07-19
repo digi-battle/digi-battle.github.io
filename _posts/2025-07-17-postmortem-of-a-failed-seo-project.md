@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: "Lessons Learned from a Failed Web Venture"
+title: "Postmortem of a Failed SEO Project"
 tags: RAMBLING WEB-DESIGN
 ---
 
