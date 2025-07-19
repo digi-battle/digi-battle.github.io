@@ -6,7 +6,7 @@ permalink: /blog
 
 <section class="breadcrumbs">
     <a href="/">home</a> /
-    blog 
+    blog
 </section>
 
 <h1>Blog</h1>
@@ -21,10 +21,12 @@ permalink: /blog
         <!--{{ item.excerpt }}-->
 
         <p>
-        {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a>
-            {% for tag in item.tags %}
+            {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a>
+            <span class="tag-list">
+                {% for tag in item.tags %}
                 <span class="tag {{tag | downcase}}">{{tag}}</span>
-            {% endfor %}
+                {% endfor %}
+            </span>
         </p>
     </li>
     {% endfor %}
