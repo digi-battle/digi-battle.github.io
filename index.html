@@ -10,17 +10,20 @@ title: "Web Developer"
 <p>I use technology to make life easier - or to build cool stuff.</p>
 <p>My main side project is <a href="https://digi-battle.com" target="_blank">digi-battle.com</a>, a trading card game database launched in 2020.</p>
 
-<h2>featured blog posts</h2>
+<h2>Blog</h2>
 <ul>
     {% assign sorted-posts = site.posts | where:"featured","true" | sort: 'date' | reverse %}
     {% for item in sorted-posts %}
     <li>
         <p>
             {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a>
-            {% for tag in item.tags %}
+            <span class="tag-list">
+                {% for tag in item.tags %}
                 <span class="tag {{tag | downcase}}">{{tag}}</span>
-            {% endfor %}
+                {% endfor %}
+            </span>
         </p>
     </li>
     {% endfor %}
 </ul>
+<a href="/blog">All blog posts</a>
