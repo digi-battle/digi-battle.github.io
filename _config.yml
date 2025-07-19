@@ -8,14 +8,3 @@ plugins:
   - jekyll-seo-tag
 
 permalink: /:categories/:year/:month/:day/:title
-
-collections:
-  rambling:
-    output: true
-    permalink: /:collection/:name
-  work:
-    output: true  
-    permalink: /:collection/:name
-  design:
-    output: true  
-    permalink: /:collection/:name
