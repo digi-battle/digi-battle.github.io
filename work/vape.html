@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: "Noto Sans Mono", monospace;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            font-variation-settings: "wdth" 100;
+            text-align: center;
+        }
+
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+        a {
+            color: inherit !important;
+        }
+        p {
+            margin-bottom: 0;
+            opacity: 0.7;
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-bottom: 2em;
+        }
+
+            h2 span {
+                font-weight: bold;
+            }
+
+        .row {
+            display: flex;
+            flex-flow: column;
+        }
+
+        .column {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header {
+            min-height: 200px;
+            background-color: #386641;
+            color: #fff;
+        }
+
+        .half {
+            background-color: #F2E8CF;
+            padding: 3em 0;
+        }
+
+            .half:nth-child(1) {
+                background-color: #A7C957;
+            }
+
+        @media(min-width: 768px) {
+            .row {
+                display: flex;
+                flex-flow: row;
+            }
+
+            .half {
+                height: calc(100vh - 200px);
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="row">
+        <div class="column header">
+            <p>You haven't vaped in</p>
+            <h1>
+                <!-- <span>🎉</span> -->
+                <span id="time-link"></span>
+                <!-- <span>🎉</span> -->
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column half">
+            <h2>That's <span id="puff-count"></span> puffs <span>💨</span></h2>
+
+            <h2><span id="refill-count"></span> tank refills <span>➕</span></h2>
+
+            <h2><span id="bottle-count"></span> bottles finished <span>🧴</span></h2>
+
+            <h2><span id="bottle-cost"></span> saved <span>💵</span></h2>
+
+            <p>Your lungs and wallet say thank you!</h1>
+        </div>
+
+        <div class="column half">
+            Test
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column header">
+            <p>This page was heavily inspired by the works of <a href="https://neal.fun/" target="_blank" rel="noopener nofollow">https://neal.fun/</a></p>
+            <h2>Thanks for visiting</h2>
+        </div>
+    </div>
+    
+    <script>
+
+        //TODO:
+        //- funny stat for time spent(you could have watched X file X times)
+        //    - funny stat for money saved(you could buy X with the money you've saved)
+        //        - stat for the volume of fluid not passed through your lungs
+        //            - allow user to enter their own details:
+        //- when they stopped vaping
+        //    - did they smoke disposabled / refillables / cigarettes ?
+        //        - were they a light / moderate / heavy smoker
+
+
+        
+        const startTime = new Date("2025-08-14T11:56:00");
+        //const startTime = new Date("2025-02-12T01:56:00");
+        const puffsPerMinute = 1;
+        const refillsPerDay = 3;
+        const bottlesPerWeek = 1; //1 per week (50ml bottle, 3.6ml per bottle)
+        const bottleCost = 13;
+
+        function updateTime() {
+            const now = new Date();
+            const diffMs = now - startTime; // milliseconds difference
+
+            // Convert to days, hours, minutes, seconds
+            const seconds = Math.floor(diffMs / 1000) % 60;
+            const minutes = Math.floor(diffMs / (1000 * 60)) % 60;
+            const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+            let dayText = days === 0 ? '' : `${days} days `;
+            let hourText = hours === 0 ? '' : `${hours} hours `;
+            let minuteText = minutes === 0 ? '' : `${minutes} minutes `;
+            let secondText = seconds === 0 ? '' : `${seconds} seconds `;
+
+            // Update the <a> tag
+            const link = document.getElementById("time-link");
+            link.textContent = `${dayText} ${hourText} ${minuteText} ${secondText}`;
+
+            const totalHours = diffMs / (1000 * 60 * 60);
+            const totalPuffs = (totalHours * 60) * puffsPerMinute;
+            const totalRefills = (totalHours / 12) * refillsPerDay;
+            const totalBottles = (totalHours / 168) * bottlesPerWeek;
+            const totalBottleCost = totalBottles * bottleCost;
+
+            document.getElementById("puff-count").textContent = `${FormatNumber(totalPuffs)}`;
+            document.getElementById("refill-count").textContent = `${FormatNumber(totalRefills)}`;
+            document.getElementById("bottle-count").textContent = `${FormatNumber(totalBottles)}`;
+            document.getElementById("bottle-cost").textContent = `${FormatPrice(totalBottleCost)}`;
+        }
+
+        function FormatNumber(input) {
+            return Math.floor(input).toLocaleString();
+        }
+
+        function FormatPrice(input) {
+            return input.toLocaleString("en-GB", {
+                style: "currency",
+                currency: "GBP",
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        // Update every second
+        updateTime(); // initial call
+        setInterval(updateTime, 1000);
+    </script>
+</body>
