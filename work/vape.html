@@ -113,7 +113,9 @@
         </div>
 
         <div class="column half">
-            Test
+
+
+            <h2>You can buy a <span id="can-afford-now"></span> with the money you've saved!</h2>
         </div>
     </div>
 
@@ -128,13 +130,13 @@
 
         //TODO:
         //- funny stat for time spent(you could have watched X file X times)
-        //    - funny stat for money saved(you could buy X with the money you've saved)
-        //        - stat for the volume of fluid not passed through your lungs
-        //            - allow user to enter their own details:
-        //- when they stopped vaping
+        //- stat for the volume of fluid not passed through your lungs
+        //- allow user to enter their own details:
+        //    - when they stopped vaping
         //    - did they smoke disposabled / refillables / cigarettes ?
-        //        - were they a light / moderate / heavy smoker
-
+        //    - were they a light / moderate / heavy smoker
+        //- status text based on how far through withdrawal you may be, but be motivational/congratulatory
+        //- save settings to cookies
 
         
         const startTime = new Date("2025-08-14T11:56:00");
@@ -143,6 +145,30 @@
         const refillsPerDay = 3;
         const bottlesPerWeek = 1; //1 per week (50ml bottle, 3.6ml per bottle)
         const bottleCost = 13;
+
+        const affordables = [
+            { Name: "Paperclip", Price: 0.01 },
+            { Name: "Envelope", Price: 0.05 },
+            { Name: "First-class postage stamp", Price: 1.25 },
+            { Name: "Bottle of water (500 ml)", Price: 3.00 },
+            { Name: "Paperback book", Price: 7.99 },
+            { Name: "3-pack of cotton socks", Price: 12.00 },
+            { Name: "Basic wired mouse", Price: 20.00 },
+            { Name: "Casual restaurant meal", Price: 35.00 },
+            { Name: "New release video game", Price: 50.00 },
+            { Name: "Monthly broadband bill", Price: 65.00 },
+            { Name: "Budget microwave oven", Price: 120.00 },
+            { Name: "Entry-level smartphone", Price: 200.00 },
+            { Name: "Upright vacuum cleaner", Price: 300.00 },
+            { Name: "Mid-range washing machine", Price: 450.00 },
+            { Name: "Mid-range laptop", Price: 750.00 },
+            { Name: "High-end smartphone", Price: 1100.00 },
+            { Name: "Entry-level electric bike", Price: 1500.00 },
+            { Name: "Designer handbag", Price: 1800.00 },
+            { Name: "Three-seater sofa", Price: 1950.00 },
+            { Name: "Small used car", Price: 2000.00 }
+        ];
+
 
         function updateTime() {
             const now = new Date();
@@ -154,10 +180,10 @@
             const hours = Math.floor(diffMs / (1000 * 60 * 60)) % 24;
             const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-            let dayText = days === 0 ? '' : `${days} days `;
-            let hourText = hours === 0 ? '' : `${hours} hours `;
-            let minuteText = minutes === 0 ? '' : `${minutes} minutes `;
-            let secondText = seconds === 0 ? '' : `${seconds} seconds `;
+            let dayText = days === 0 ? '' : `${days} day${days > 1 ? 's' : ''}`;
+            let hourText = hours === 0 ? '' : `${hours} hour${hours > 1 ? 's' : ''}`;
+            let minuteText = minutes === 0 ? '' : `${minutes} minute${minutes > 1 ? 's' : ''}`;
+            let secondText = seconds === 0 ? '' : `${seconds} second${seconds > 1 ? 's' : ''}`;
 
             // Update the <a> tag
             const link = document.getElementById("time-link");
@@ -173,6 +199,12 @@
             document.getElementById("refill-count").textContent = `${FormatNumber(totalRefills)}`;
             document.getElementById("bottle-count").textContent = `${FormatNumber(totalBottles)}`;
             document.getElementById("bottle-cost").textContent = `${FormatPrice(totalBottleCost)}`;
+
+            const canAfford = affordables
+                .filter(a => a.Price < totalBottleCost)
+                .sort((a, b) => b.Price - a.Price)
+                .map(a => a.Name)[0];
+            document.getElementById("can-afford-now").textContent = canAfford;
         }
 
         function FormatNumber(input) {
