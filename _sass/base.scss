@@ -137,7 +137,7 @@ h3 {
     display: block;
     margin: 0 auto;
     max-width: 1000px;
-    padding: 0 1rem;
+    padding: 0 1rem 1rem 1rem;
 }
 
 @media(min-width: 1024px) {
@@ -158,6 +158,14 @@ h3 {
 .blog-content img {
     display: block; 
     margin: 0 auto;
+}
+
+.blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5 {
+    margin-top: 4rem;
+}
+
+.blog-content p {
+    margin: 2rem 0;
 }
 
 .back-to-top {
@@ -218,4 +226,17 @@ h3 {
 
 img {
     max-width: 100%;
+}
+
+hr {
+    border-color: $font-color;
+    border-style: dashed;
+}
+
+ul {
+    padding-left: 2ch;
+}
+
+ol {
+    padding-left: 3ch;
 }

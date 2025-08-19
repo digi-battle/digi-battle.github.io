@@ -16,7 +16,7 @@ title: "Web Developer"
     {% for item in sorted-posts %}
     <li>
         <p>
-            {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.title }}</a>
+            {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.name }}</a>
             <span class="tag-list">
                 {% for tag in item.tags %}
                 <span class="tag {{tag | downcase}}">{{tag}}</span>
