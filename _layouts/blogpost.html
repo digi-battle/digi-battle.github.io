@@ -5,10 +5,10 @@ layout: default
 <section class="breadcrumbs">
     <a href="/">home</a> /
     <a href="/blog">blog</a> /
-    {{page.title}}
+    {{page.name}}
 </section>
 
-<h1>{{page.title}}</h1>
+<h1>{{page.name}}</h1>
 <p>
     {% for tag in page.tags %}
         <span class="tag {{tag | downcase}}">{{tag}}</span>

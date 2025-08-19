@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: "Hello Jekyll"
+name: "Hello Jekyll"
 tags: RAMBLING
 ---
 

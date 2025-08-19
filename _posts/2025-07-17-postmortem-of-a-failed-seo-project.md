@@ -1,6 +1,6 @@
 ---
 layout: blogpost
-title: "Postmortem of a Failed SEO Project"
+name: "Postmortem of a Failed SEO Project"
 featured: true
 tags: RAMBLING WEB-DESIGN
 ---

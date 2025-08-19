@@ -1,0 +1,77 @@
+---
+short_name: turning-pngs-into-gifs-on-hover
+name: Turning PNGs into GIFs on Hover
+description:
+layout: blogpost
+featured: false
+tags: CSS
+---
+
+<style>
+    .text-center {
+        text-align: center;
+    }
+
+    .my {
+        margin: 3rem;
+    }
+
+    .gif-container {
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+        .gif-container img:nth-child(2) {
+            display: none;
+        }
+
+        .gif-container:hover {
+            cursor: pointer;
+        }
+
+            .gif-container:hover img:nth-child(1) {
+                display: none;
+            }
+
+            .gif-container:hover img:nth-child(2) {
+                display: block;
+            }
+</style>
+
+<p>
+    I saw this effect used a few years ago and I've been looking for a cool application for it ever since.
+</p>
+
+<p>
+    It was on a musician's personal site (the link is now dead) - but the navigation links on the website were all painted images which were replaced by animated GIFs when hovered.
+</p>
+
+<p>
+    My favourite was a Mazda Miata-style car that opened and flashed its headlights when you hovered over it.
+</p>
+
+<p>
+    LIVE-EDIT: I found an archive of the site on <a href="https://web.archive.org/web/20230511220618/https://atrpntime.net/art" target="_blank" rel="nofollow noopener">wayback machine</a>. This is the effect I'm talking about:
+</p>
+
+<div class="text-center my">
+    <div class="gif-container" style="max-width: 200px;">
+        <img src="/assets/img/blog/gif-hover/probey1.png" />
+        <img src="/assets/img/blog/gif-hover/probey1.gif" />
+    </div>
+</div>
+
+<p>
+    I was so impressed when I first saw this, I've never seen anyone do this before and I think it's so cool and original.
+</p>
+
+<p>
+    Mandatory Dr Pepper example:
+</p>
+
+<div class="text-center my">
+    <div class="gif-container">
+        <img src="/assets/img/blog/gif-hover/dr-pepper.png" />
+        <img src="/assets/img/blog/gif-hover/dr-pepper.gif" />
+    </div>
+</div>
