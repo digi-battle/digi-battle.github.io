@@ -4,22 +4,12 @@ title: Blog
 permalink: /blog
 ---
 
-<section class="breadcrumbs">
-    <a href="/">home</a> /
-    blog
-</section>
-
 <h1>Blog</h1>
-<p>Things I've said.</p>
 
 <ul>
     {% assign sorted-posts = site.posts | sort: 'date' | reverse %}
     {% for item in sorted-posts %}
     <li>
-        <!--<h2><a href="{{ item.url }}">{{ item.title }}</a></h2>
-        <p>{{ item.date | date_to_string }}</p>-->
-        <!--{{ item.excerpt }}-->
-
         <p>
             {{ item.date | date_to_string }} ~ <a href="{{ item.url }}">{{ item.name }}</a>
             <span class="tag-list">
