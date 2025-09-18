@@ -1,0 +1,56 @@
+---
+layout: default
+---
+
+<section class="breadcrumbs">
+    <a href="/">home</a> /
+    <a href="/blog">blog</a> /
+    {{page.name}}
+</section>
+
+<h1>{{page.name}}</h1>
+<p>
+    {% for tag in page.tags %}
+        <span class="tag {{tag | downcase}}">{{tag}}</span>
+    {% endfor %}
+</p>
+<p>{{ page.date | date_to_string }}</p>
+<div class="blog-content">
+    <ol id="index"></ol>
+
+    {{page.content}}
+</div>
+
+<script>
+    // Build the contents table
+    let indexes = document.getElementsByTagName("h2");
+    let indexList = document.getElementById("index");
+
+    for (let index of indexes) {
+        var id = index.innerText.replaceAll(" ", "-").replaceAll("#", "").replaceAll("&", "").replaceAll(".", "").replaceAll(",", "").toLowerCase();
+        index.id = id;
+
+        var anchor = document.createElement("a");
+        anchor.href = `#${id}`;
+        var li = document.createElement("li");
+        anchor.innerText = index.innerText;
+
+        li.appendChild(anchor);
+        indexList.appendChild(li);
+    }
+
+    // Update all external links
+    let links = document.getElementsByTagName("a");
+    for (let link of links) {
+        if (!isLocalLink(link)) {
+            link.target = "_blank";
+            link.rel = "noopener";
+        }
+    }
+
+    function isLocalLink(href) {
+        const url = new URL(href, window.location.origin);
+        return url.hostname === window.location.hostname;
+    }
+
+</script>

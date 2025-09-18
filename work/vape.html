@@ -58,9 +58,9 @@
             width: 100%;
         }
 
-        .column h2 {
-            padding: 0 1em;
-        }
+            .column h2 {
+                padding: 0 1em;
+            }
 
         .header {
             min-height: 200px;
@@ -88,13 +88,119 @@
                 padding: 0;
             }
         }
+
+        .show-settings-button {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+        }
+
+        .settings {
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: teal;
+            color: #fff;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: height 0.2s ease-in-out;
+        }
+
+            .settings.closed {
+                height: 0;
+            }
+
+            .settings h2 {
+                margin-bottom: 1em;
+            }
+
+            .settings button {
+                width: 100%;
+                max-width: 250px;
+                border: 1px solid black;
+                padding: 10px;
+            }
+
+        .form-group {
+            display: block;
+            margin-top: 2em;
+        }
+
+        input[type="datetime-local"] {
+            background-color: lightcyan;
+            border: 1px solid lightcyan;
+            padding: 5px 10px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+            input[type="radio"] + label {
+                background-color: lightcyan;
+                border: 1px solid lightcyan;
+                color: black;
+                padding: 5px 10px;
+                user-select: none;
+            }
+
+                input[type="radio"] + label:hover {
+                    cursor: pointer;
+                }
+
+            input[type="radio"]:checked + label {
+                /*display: none;*/
+                background-color: lawngreen;
+                border: 1px solid lawngreen;
+            }
     </style>
 </head>
 <body>
 
+    <section id="Settings" class="settings">
+        <form>
+            <div class="form-group">
+                <h2>What are you quitting?</h2>
+                <input type="radio" id="cig" name="addiction" value="cig">
+                <label for="cig">cig</label>
+                <input type="radio" id="refill_vape" name="addiction" value="refill_vape" checked>
+                <label for="refill_vape">refill_vape</label>
+                <input type="radio" id="disposable_vape" name="addiction" value="disposable_vape">
+                <label for="disposable_vape">disposable_vape</label>
+            </div>
+
+            <div class="form-group">
+                <h2>How heavily did you use?</h2>
+                <input type="radio" id="light" name="usage" value="light">
+                <label for="light">light</label>
+                <input type="radio" id="regular" name="usage" value="regular">
+                <label for="regular">regular</label>
+                <input type="radio" id="heavy" name="usage" value="heavy" checked>
+                <label for="heavy">heavy</label>
+            </div>
+
+            <div class="form-group">
+                <h2>When did you quit?</h2>
+                <input name="DateQuit" id="DateQuit" type="datetime-local" />
+            </div>
+
+            <div class="form-group">
+                <button id="SaveSettings" type="button">Go!</button>
+            </div>
+        </form>
+    </section>
+
     <div class="row">
         <div class="column header">
-            <p>You haven't vaped in</p>
+            <button id="ShowSettings" type="button" class="show-settings-button">Settings</button>
+
+            <p>You haven't <span id="Verb"></span> in</p>
             <h1>
                 <!-- <span>🎉</span> -->
                 <span id="time-link"></span>
@@ -107,8 +213,8 @@
         <div class="column half">
             <h2>That's <span id="puff-count"></span> puffs <span>💨</span></h2>
 
-            <h2><span id="refill-count"></span> tank refills</h2>
 
+            <h2><span id="refill-count"></span> tank refills</h2>
             <h2><span id="bottle-count"></span> bottles finished</h2>
 
             <h2><span id="bottle-cost"></span> saved <span>💵</span></h2>
@@ -128,7 +234,7 @@
             <p>This page was heavily inspired by the works of <a href="https://neal.fun/" target="_blank" rel="noopener nofollow">https://neal.fun/</a></p>
         </div>
     </div>
-    
+
     <script>
 
         //TODO:
@@ -139,13 +245,29 @@
         //- save settings to cookies
 
 
-        const startTime = new Date("2025-08-14T11:56:00");
+        //const startTime = new Date("2025-08-14T11:56:00");
         //const startTime = new Date("2025-02-12T01:56:00");
-        //const startTime = new Date();
+
+
+        //Generic
+        let startTime = new Date();
+        let verb = "";
         const puffsPerMinute = 1;
+
+
+        //Refill Vape        
         const refillsPerDay = 2;
         const bottlesPerWeek = 1; //1 per week (50ml bottle, 3.6ml per bottle)
         const bottleCost = 13;
+
+        //Disposable Vape
+        const vapeCost = 6;
+        const vapePerDay = 1;
+
+        //Cigs
+        const cigsPerDay = 20;
+        const packetCost = 13;
+
 
         const affordables = [
             { Name: "nothing", Price: 0.00 },
@@ -169,7 +291,6 @@
             { Name: "a three-seater sofa", Price: 1950.00 },
             { Name: "a small used car", Price: 2000.00 }
         ];
-
         const statusProgress = [
             { Text: "You're at the start of your journey and you're doing great. Keep going!", Day: 0 },
             { Text: "Your cravings are the worst they will be. This is the hardest part, but it's nothing you can't handle. Occupy your brain and do something to take your mind off it. You can do it!", Day: 1 },
@@ -205,6 +326,7 @@
             const totalBottles = (totalHours / 168) * bottlesPerWeek;
             const totalBottleCost = totalBottles * bottleCost;
 
+            document.getElementById("Verb").textContent = `${verb}`;
             document.getElementById("puff-count").textContent = `${FormatNumber(totalPuffs)}`;
             document.getElementById("refill-count").textContent = `${FormatNumber(totalRefills)}`;
             document.getElementById("bottle-count").textContent = `${FormatNumber(totalBottles)}`;
@@ -239,6 +361,61 @@
                 maximumFractionDigits: 2
             });
         }
+
+        document.getElementById("SaveSettings").addEventListener("click", function () {
+            UpdateValues();
+            document.getElementById("Settings").classList.add("closed");
+        });
+
+        document.getElementById("ShowSettings").addEventListener("click", function () {
+            document.getElementById("Settings").classList.remove("closed");
+        });
+
+        document.getElementsByName("addiction").forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                if (event.target.checked) {
+                    console.log(event.srcElement.value);
+                }
+            });
+        });
+
+        function Setup() {
+            // Check cookies to see if user has settings stored
+            // Load settings if found
+            // If not then default
+            document.getElementById("disposable_vape").checked = true;
+            document.getElementById("heavy").checked = true;
+            document.getElementById("DateQuit").value = "2025-08-14T11:56:00";            
+        }
+
+        function UpdateValues() {
+            startTime = new Date(document.getElementById("DateQuit").value);
+
+            const additionRadios = document.getElementsByName("addiction");
+            let selectedAddiction = null;
+            for (const radio of additionRadios) {
+                if (radio.checked) {
+                    selectedAddiction = radio.value;
+                    break;
+                }
+            }
+
+            switch (selectedAddiction) {
+                case "cig":
+                    verb = "smoked";
+                    break;
+                case "disposable_vape": 
+                    verb = "vaped";
+                    break;
+                case "refill_vape": 
+                    verb = "vaped";
+                    break;
+            }
+
+            updateTime();
+        }
+
+        Setup();
 
         // Update every second
         updateTime(); // initial call
