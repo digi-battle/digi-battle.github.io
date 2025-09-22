@@ -15,7 +15,7 @@ layout: default
     {% endfor %}
 </p>
 <p>{{ page.date | date_to_string }}</p>
-<div class="blog-content">
+<div class="blog-content {{page.containerClassOverrides}}">
     {{page.content}}
 
     <!--<a href="#" class="back-to-top">back to top</a>-->
