@@ -8,14 +8,17 @@ layout: default
     {{page.name}}
 </section>
 
-<h1>{{page.name}}</h1>
-<p>
-    {% for tag in page.tags %}
-        <span class="tag {{tag | downcase}}">{{tag}}</span>
-    {% endfor %}
-</p>
-<p>{{ page.date | date_to_string }}</p>
 <div class="blog-content">
+    <h1>{{page.name}}</h1>
+
+    <p>
+        {% for tag in page.tags %}
+        <span class="tag {{tag | downcase}}">{{tag}}</span>
+        {% endfor %}
+    </p>
+
+    <p>{{ page.date | date_to_string }}</p>
+
     <ol id="index"></ol>
 
     {{page.content}}
@@ -45,6 +48,7 @@ layout: default
         if (!isLocalLink(link)) {
             link.target = "_blank";
             link.rel = "noopener";
+            link.classList.add("link-external");
         }
     }
 

@@ -6,7 +6,7 @@ permalink: /blog
 
 <h1>Blog</h1>
 
-<ul>
+<!--<ul>
     {% assign sorted-posts = site.posts | sort: 'date' | reverse %}
     {% for item in sorted-posts %}
     <li>
@@ -20,4 +20,29 @@ permalink: /blog
         </p>
     </li>
     {% endfor %}
-</ul>
+</ul>-->
+
+<div class="blog-post-list">
+    {% assign sorted-posts = site.posts | sort: 'date' | reverse %}
+    {% for item in sorted-posts %}
+    <div class="post">
+        <div class="date">
+            {{ item.date | date_to_string }}
+        </div>
+        <div class="title">
+            <a href="{{ item.url }}">{{ item.name }}</a>
+        </div>
+        <div class="arrow">
+            <hr />
+        </div>
+        <div class="tags">
+            <span class="tag-list">
+                {% assign reversed-tags = item.tags | reverse %}
+                {% for tag in reversed-tags %}
+                <span class="tag {{tag | downcase}}">{{tag}}</span>
+                {% endfor %}
+            </span>
+        </div>
+    </div>
+    {% endfor %}
+</div>

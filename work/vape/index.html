@@ -5,161 +5,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            font-family: "Noto Sans Mono", monospace;
-            font-optical-sizing: auto;
-            font-weight: 500;
-            font-style: normal;
-            font-variation-settings: "wdth" 100;
-            text-align: center;
-        }
-
-        html, body {
-            padding: 0;
-            margin: 0;
-        }
-
-        a {
-            color: inherit !important;
-        }
-
-        p {
-            margin-bottom: 0;
-            opacity: 0.7;
-        }
-
-        h1, h2 {
-            margin-top: 0;
-        }
-
-        h2 {
-            margin-bottom: 2em;
-        }
-
-            h2 span {
-                font-weight: bold;
-            }
-
-        .row {
-            display: flex;
-            flex-flow: column;
-        }
-
-        .column {
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-            .column h2 {
-                padding: 0 1em;
-            }
-
-        .header {
-            min-height: 200px;
-            background-color: #386641;
-            color: #fff;
-        }
-
-        .half {
-            background-color: #F2E8CF;
-            padding: 3em 0;
-        }
-
-            .half:nth-child(1) {
-                background-color: #A7C957;
-            }
-
-        @media(min-width: 768px) {
-            .row {
-                display: flex;
-                flex-flow: row;
-            }
-
-            .half {
-                height: calc(100vh - 200px);
-                padding: 0;
-            }
-        }
-
-        .show-settings-button {
-            position: absolute;
-            top: 1em;
-            right: 1em;
-        }
-
-        .settings {
-            width: 100vw;
-            height: 100vh;
-            overflow: auto;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: teal;
-            color: #fff;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: height 0.2s ease-in-out;
-        }
-
-            .settings.closed {
-                height: 0;
-            }
-
-            .settings h2 {
-                margin-bottom: 1em;
-            }
-
-            .settings button {
-                width: 100%;
-                max-width: 250px;
-                border: 1px solid black;
-                padding: 10px;
-            }
-
-        .form-group {
-            display: block;
-            margin-top: 2em;
-        }
-
-        input[type="datetime-local"] {
-            background-color: lightcyan;
-            border: 1px solid lightcyan;
-            padding: 5px 10px;
-        }
-
-        input[type="radio"] {
-            display: none;
-        }
-
-            input[type="radio"] + label {
-                background-color: lightcyan;
-                border: 1px solid lightcyan;
-                color: black;
-                padding: 5px 10px;
-                user-select: none;
-            }
-
-                input[type="radio"] + label:hover {
-                    cursor: pointer;
-                }
-
-            input[type="radio"]:checked + label {
-                /*display: none;*/
-                background-color: lawngreen;
-                border: 1px solid lawngreen;
-            }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -213,13 +59,23 @@
         <div class="column half">
             <h2>That's <span id="puff-count"></span> puffs <span>💨</span></h2>
 
+            <div id="RefillVape">
+                <h2><span id="refill-count"></span> tank refills</h2>
+                <h2><span id="bottle-count"></span> bottles finished</h2>
+                <h2><span id="bottle-cost"></span> saved <span>💵</span></h2>
+            </div>
+            <div id="DisposableVape">
+                <h2><span id="disposable-count"></span> vapes</h2>
+                <h2><span id="disposable-cost"></span> saved <span>💵</span></h2>
+            </div>
+            <div id="Cigs">
+                <h2><span id="cig-count"></span> cigarettes</h2>
+                <h2><span id="cig-packet-count"></span> packets</h2>
+                <h2><span id="cig-cost"></span> saved <span>💵</span></h2>
+            </div>
+            
 
-            <h2><span id="refill-count"></span> tank refills</h2>
-            <h2><span id="bottle-count"></span> bottles finished</h2>
-
-            <h2><span id="bottle-cost"></span> saved <span>💵</span></h2>
-
-            <p>Your lungs and wallet say thank you!</h1>
+            <p>Your lungs and wallet say thank you!</p>
         </div>
 
         <div class="column half">
@@ -253,7 +109,6 @@
         let startTime = new Date();
         let verb = "";
         const puffsPerMinute = 1;
-
 
         //Refill Vape        
         const refillsPerDay = 2;
@@ -320,17 +175,34 @@
             const link = document.getElementById("time-link");
             link.textContent = `${dayText} ${hourText} ${minuteText} ${secondText}`;
 
+            //Generic
             const totalHours = diffMs / (1000 * 60 * 60);
             const totalPuffs = (totalHours * 60) * puffsPerMinute;
+            document.getElementById("Verb").textContent = `${verb}`;
+
+            //Refill Vape
             const totalRefills = (totalHours / 12) * refillsPerDay;
             const totalBottles = (totalHours / 168) * bottlesPerWeek;
             const totalBottleCost = totalBottles * bottleCost;
-
-            document.getElementById("Verb").textContent = `${verb}`;
             document.getElementById("puff-count").textContent = `${FormatNumber(totalPuffs)}`;
             document.getElementById("refill-count").textContent = `${FormatNumber(totalRefills)}`;
             document.getElementById("bottle-count").textContent = `${FormatNumber(totalBottles)}`;
             document.getElementById("bottle-cost").textContent = `${FormatPrice(totalBottleCost)}`;
+
+            //Disposable Vape
+            const totalDisposableVapesFinished = (totalHours / 24) * vapePerDay;
+            const totalDisposableVapeCost = totalDisposableVapesFinished * vapeCost;
+            document.getElementById("disposable-count").textContent = `${FormatNumber(totalDisposableVapesFinished)}`;
+            document.getElementById("disposable-cost").textContent = `${FormatPrice(totalDisposableVapeCost)}`;
+            
+            //Cigarettes
+            const cigsSmoked = (totalHours / 24) * cigsPerDay;
+            const packsSmoked = (cigsSmoked / 20);
+            const totalCigCost = packetCost * packsSmoked;
+            document.getElementById("cig-count").textContent = `${FormatNumber(cigsSmoked)}`;
+            document.getElementById("cig-packet-count").textContent = `${FormatNumber(packsSmoked)}`;
+            document.getElementById("cig-cost").textContent = `${FormatPrice(totalCigCost)}`;
+
 
             if (totalHours >= 3) {
                 document.getElementById("time-message").textContent = `Since quitting, you could have watched The Wolf of Wall Street ${FormatNumber(totalHours / 3)} times.`;
@@ -383,9 +255,9 @@
             // Check cookies to see if user has settings stored
             // Load settings if found
             // If not then default
-            document.getElementById("disposable_vape").checked = true;
+            document.getElementById("refill_vape").checked = true;
             document.getElementById("heavy").checked = true;
-            document.getElementById("DateQuit").value = "2025-08-14T11:56:00";            
+            document.getElementById("DateQuit").value = "2025-08-14T11:56:00";
         }
 
         function UpdateValues() {
@@ -400,15 +272,22 @@
                 }
             }
 
+            document.getElementById("RefillVape").classList.add("d-none");
+            document.getElementById("DisposableVape").classList.add("d-none");
+            document.getElementById("Cigs").classList.add("d-none");
+
             switch (selectedAddiction) {
                 case "cig":
                     verb = "smoked";
+                    document.getElementById("Cigs").classList.remove("d-none");
                     break;
                 case "disposable_vape": 
                     verb = "vaped";
+                    document.getElementById("DisposableVape").classList.remove("d-none");
                     break;
                 case "refill_vape": 
                     verb = "vaped";
+                    document.getElementById("RefillVape").classList.remove("d-none");
                     break;
             }
 
