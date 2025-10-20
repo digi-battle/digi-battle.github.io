@@ -1,0 +1,15 @@
+<div class="flex-50-50 my-2">
+    <div class="text-left">
+        {% if page.previous %}
+        Previous post: <br />
+        <a href="{{ page.previous.url }}">{{ page.previous.title }}</a>
+        {% endif %}
+    </div>
+
+    <div class="text-right">
+        {% if page.next %}
+        Next post: <br />
+        <a href="{{ page.next.url }}">{{ page.next.title }}</a>
+        {% endif %}
+    </div>
+</div>

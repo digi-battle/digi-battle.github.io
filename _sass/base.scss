@@ -385,3 +385,15 @@ ol {
     display: flex;
     align-items: center;
 }
+
+.flex-50-50 {
+    display: flex;
+    flex-direction: row;
+
+    gap: 1rem;
+}
+
+.flex-50-50 * {
+    width: 100%;
+}
+
