@@ -10,7 +10,7 @@ layout: default
 
 <div class="blog-content {{page.containerClassOverrides}}">
     <h1>{{page.name}}</h1>
-    <p>
+    <p class="tag-container">
         {% for tag in page.tags %}
         <span class="tag {{tag | downcase}}">{{tag}}</span>
         {% endfor %}
