@@ -1,0 +1,48 @@
+.gallery {
+    display: grid;
+    align-items: start;
+    gap: 2em;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media(min-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(min-width: 996px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media(min-width: 1200px) {
+    .gallery {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.gallery-card {
+    border-left: .5em solid rgba(255, 255, 191, 0.5);
+    padding-left: .5em;
+}
+
+.gallery-card__description {
+    padding: .5em 0 0;
+    margin: 0 !important; /*TODO: remove this when .blogpost classes have been BEM-ified*/
+    font-size: .8rem;
+}
+
+.gallery-card__image {
+    /*max-height: 15rem;
+    overflow: hidden;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: auto;
+        max-width: 100%;
+    }
+}
