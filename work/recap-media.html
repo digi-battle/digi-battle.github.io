@@ -1,0 +1,55 @@
+---
+layout: default
+---
+<style>
+    section {
+        column-count: 3;
+        column-gap: 0px;
+        max-width: 100%;
+    }
+
+    @media(min-width: 768px) {
+        section {
+            column-count: 6;
+        }
+    }
+
+    img {
+        max-width: 100%;
+        margin-bottom: 0px;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+<h1>Recap Media</h1>
+<p>
+    Every month I write a <a href="/blog?tags=RECAP">Recap Post</a> showcasing cool websites, art, people and media I discovered that month.
+</p>
+<p>
+    This is the growing collection of media from those posts.
+</p>
+
+<section>
+    {% assign recap_posts = site.posts | where_exp: "post", "post.tags contains 'RECAP'" %}
+    {% for page in recap_posts %}
+    {% for title in page.items %}
+    {% assign item = site.recap_items | where: "title", title | first %}
+    {% if item %}
+    {% assign loading = item.loading | default: "lazy" %}
+    {% assign images = item.img_src %}
+    {% if images %}
+    <a href="{{page.url}}#{{ item.title | slugify }}">
+        {% if images.size %}
+        {% for img in images %}
+        <img src="{{ page.img_dir }}{{ img }}" loading="{{ loading }}" alt="{{ item.img_alt }}" />
+        {% endfor %}
+        {% else %}
+        <img src="{{ page.img_dir }}{{ images }}" loading="{{ loading }}" alt="{{ item.img_alt }}" />
+        {% endif %}
+    </a>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+</section>
