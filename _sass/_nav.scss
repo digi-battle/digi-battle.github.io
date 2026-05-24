@@ -2,39 +2,28 @@
     margin: 0 1rem 1rem;
     padding: 0.5rem 0;
     display: flex;
-    /*background-color: $primary-background-color;*/
     color: $primary-font-color;
+    justify-content: space-between;
+}
 
-    .nav-link {
-        color: $primary-font-color;
-        text-align: center;
-        text-decoration: none;
-        width: 100%;
-    }
+.top-nav__link {
+    color: $primary-font-color;
+    text-align: center;
+    text-decoration: none;
 
-    .nav-link:hover {
+    &:hover {
         text-decoration: underline;
     }
 
-    .nav-link:hover .nav-text-hider {
-        width: 100%;
-    }
-
-    .nav-link:visited {
+    &:visited {
         color: $primary-font-color;
     }
-}
 
-.top-nav .nav-link:first-child {
-    text-align: left;
-}
-.top-nav .nav-link:last-child {
-    text-align: right;
-}
+    &:first-child {
+        text-align: left;
+    }
 
-.nav-text-hider {
-    width: 1ch;
-    overflow: hidden;
-    display: inline-block;
-    transition: width .5s linear;
+    &:last-child {
+        text-align: right;
+    }
 }

@@ -1,8 +1,8 @@
 ﻿$blue: #000040;
 $beige: #ffffbf;
+$grey: rgba(255, 255, 191, .5);
 
 $font-size: 20px;
-/*$font-color: black;*/
 $font-color: $beige;
 $font-primary: "IBM Plex Mono", monospace;
 $font-primary-backup: Courier New, Courier, monospace;
@@ -19,5 +19,4 @@ $button-primary-font-color: $blue;
 $button-secondary-background-color: $blue;
 $button-secondary-font-color: $beige;
 
-/*#000040 --BG*/
-/*#ffffbf - TEXT*/
+$accent-color: $grey;

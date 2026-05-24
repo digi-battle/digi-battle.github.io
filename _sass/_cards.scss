@@ -1,77 +1,46 @@
-﻿.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(250px, 1fr));
-    gap: 10px;
-    row-gap: 2rem;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
-}
-
-/*.card-container.projects .card:hover, .card-container.projects .card:hover .card-header, .card-container.projects .card:hover .card-body, .card-container.projects .card:hover .card-footer {
-        background-color: cyan;
-    }*/
-.card-container.projects {
-    grid-template-columns: unset;
-}
-
-.card-container.projects .card {
-    border: 1px solid cyan;
-}
-
-.card-container.projects .card-header {
-    background-color: cyan;
-}
-
-.card {
-    border: 1px solid yellow;
-    position: relative;
-    border-color: black !important;
-}
-
-/*.card:hover, .card:hover .card-header, .card:hover .card-body, .card:hover .card-footer {
-        background-color: yellow;
-        color: black;
-        cursor: crosshair;
-    }*/
-
-.card a {
-    /*color: white;*/
+﻿.portfolio-card, .portfolio-card:visited {
+    color: inherit;
     text-decoration: none;
 }
 
-.card .card-header {
-    /*background-color: yellow;*/
-    /*color: black;*/
-    background-color: black !important;
-    color: white;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.card .card-body {
-    padding: 1rem;
-    margin-bottom: 2rem;
-    word-wrap: break-word;
-}
-
-.card .card-footer {
-    bottom: 1rem;
-    position: absolute;
-    right: 1rem;
-}
-
-.card .card-footer a {
-    /*color: magenta;*/
-    /*color: blue;*/
-    text-decoration: underline;
-}
-
-.card .card-footer a:hover {
+.portfolio-card__title {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    color: inherit;
     text-decoration: none;
+}
+
+.portfolio-card__description {
+    margin: 0 0 .5rem;
+    padding: 0;
+    font-size: .8rem;
+}
+
+.portfolio-card__image {
+    display: inline-block;
+    margin: 0 auto;
+    aspect-ratio: 1;
+}
+
+.portfolio-card__image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-card__image img:nth-child(2) {
+    display: none;
+}
+
+.portfolio-card__image:hover {
+    cursor: pointer;
+}
+
+.portfolio-card__image:has(img:nth-child(2)):hover img:nth-child(1) {
+    display: none;
+}
+
+.portfolio-card__image:hover img:nth-child(2) {
+    display: block;
 }

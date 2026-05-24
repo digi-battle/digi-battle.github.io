@@ -19,7 +19,7 @@ plugins:
 include:
   - e1b6d7bf5c9344078700e29cff72914a.txt
 
-permalink: /:categories/:year/:month/:day/:title
+permalink: /blog/:categories/:year/:month/:day/:title
 
 collections:
   recap_items:
