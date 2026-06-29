@@ -4,6 +4,7 @@ title: "wiredjohn.com"
 description: "Web development and design blog by John, featuring real projects, experiments, and mindless rambling."
 author:
   name: WiredJohn
+timezone: Europe/London
 
 twitter:
   card: summary_large_image

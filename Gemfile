@@ -11,6 +11,9 @@ gem "jekyll-feed", "~> 0.17.0"
 gem "jekyll-seo-tag", "~> 2.8"
 gem "jekyll-redirect-from", group: :jekyll_plugins
 
+gem "tzinfo"
+gem "tzinfo-data"
+
 gem 'base64'
 gem 'csv'
 gem 'logger'
